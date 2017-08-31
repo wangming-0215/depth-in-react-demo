@@ -119,4 +119,24 @@ interface Point {
 }
 
 let p1: Point = { x: 20, y: 40 };
-p1.x = 5; // error;
+// p1.x = 5; // error;
+
+// 函数类型:为了使用接口表示函数类型，我们需要给接口定义一个调用签名。 它就像是一个只有参数列表和返回值类型的函数定义。参数列表里的每个参数都需要名字和类型。
+// 对于函数类型的类型检查来说，函数的参数名不需要与接口里定义的名字相匹配
+interface SearchFunc {
+    (soucrce: string, subString: string): boolean;
+}
+let mySearch: SearchFunc;
+mySearch = function (source: string, subString: string) {
+    let result = source.search(subString);
+    return result > -1;
+}
+
+// 可索引类型具有一个 索引签名，它描述了对象索引的类型，还有相应的索引返回值类型
+// 支持两种索引签名：字符串和数字。 可以同时使用两种类型的索引，但是数字索引的返回值必须是字符串索引返回值类型的子类型
+interface StringArray {
+    [index: number]: string;
+}
+
+let myArray: StringArray = ['wangming', 'hahaha'];
+let myStr = myArray[0];

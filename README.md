@@ -22,3 +22,16 @@ React.cloneElement() 几乎相当于：
 如果组件是由父组件更新 props 而更新的，那么在 shouldComponentUpdate 之前会先执行
 componentWillReceiveProps 方法。此方法可以作为 React 在 props 传入后，渲染之前 setState 的
 机会。在此方法中调用 setState 是不会二次渲染的
+
+## 声明周期相关 ##
+1. 组件挂在或卸载时
+
+![](/images/1.png)
+
+![](/images/2.png)
+
+2. 数据更新过程: 指的是父组件向下传递 props 或组件自身执行 setState 方法时发生的一系列更新
+动作
+
+### React 声明周期整体流程 ###
+![](/images/3.png)
