@@ -1,39 +1,37 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import classnames from 'classnames';
 
-class TabPane extends Component {
-    static proptypes = {
-        tab: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+export default class extends Component {
+    static propTypes = {
+        tab: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.node
+        ]).isRequired,
         order: PropTypes.string.isRequired,
-        disabled: PropTypes.bool
+        disabled: PropTypes.bool,
+        isActive: PropTypes.bool
     };
 
     constructor(props) {
         super(props);
     }
-    getTabPanes() {
-        const {
-            classPrefix,
-            activeIndex,
-            prevIndex,
-            panels,
-            isActive
-        } = this.props;
-        return React.Children.map(panels, child => {
-            if (!child) return;
-            const order = parseInt(child.props.order, 10);
-            const isActive = activeIndex === order;
-            return React.cloneElement(child, {
-                classPrefix,
-                isActive,
-                children: child.props.children,
-                key: `tabpane-${order}`
-            });
-        });
-    }
+
     render() {
-        return <div>{this.getTabPanes()}</div>;
+        const { classPrefix, className, isActive, children } = this.props;
+        const classes = classnames({
+            [className]: className,
+            [`${classPrefix}-panel`]: true,
+            [`${classPrefix}-active`]: isActive
+        });
+        return (
+            <div
+                role='tabpanel'
+                className={classes}
+                aria-hidden={!isActive}>
+                {children}
+            </div>
+        );
     }
 }
 
-export default TabPane;

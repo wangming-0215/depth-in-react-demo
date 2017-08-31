@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import classnames from "classnames";
 
-class TabNav extends Component {
+export default class extends Component {
     static propTypes = {
         panels: PropTypes.node,
         classPrefix: PropTypes.string,
@@ -14,9 +14,10 @@ class TabNav extends Component {
 
     getTabs() {
         const { panels, classPrefix, activeIndex } = this.props;
-        return panels.map(child => {
+        return React.Children.map(panels, child => {
             if (!child) return;
             const order = parseInt(child.props.order, 10);
+            debugger;
             let classes = classnames({
                 [`${classPrefix}-tabs`]: true,
                 [`${classPrefix}-active`]: activeIndex === order,
