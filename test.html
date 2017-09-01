@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .show {
+            width: 100px; 
+            height: 100px;
+            background: red; 
+            border: 1px solid;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id='div'></div>
+    <button id='button'>显示div</button>
+</body>
+<script>
+        var div = document.getElementById('div');
+        div.className = 'hide';
+        var button = document.getElementById('button');
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            div.className = 'show';
+            hideDIV();
+        });
+        function hideDIV() {
+            document.body.addEventListener('click', function() {
+                div.className = 'hide';
+            });
+        }
+</script>
+</html>
