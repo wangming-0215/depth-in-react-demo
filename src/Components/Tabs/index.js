@@ -23,6 +23,7 @@ class Tabs extends Component {
     };
     constructor(props) {
         super(props);
+        this.handleTabClick = this.handleTabClick.bind(this);
         const currentProps = this.props;
         let activeIndex = 0;
         // 对于 activeIndex 来说，既可能来源于使用内部更新的 defaultActiveIndex prop，即我们
@@ -46,7 +47,7 @@ class Tabs extends Component {
         }
     }
 
-    handleTabClick = activeIndex => {
+    handleTabClick(activeIndex) {
         const prevIndex = this.state.activeIndex;
         if (this.state.activeIndex !== activeIndex && 'defaultActiveIndex' in this.props) {
             this.setState({
@@ -58,6 +59,7 @@ class Tabs extends Component {
     }
 
     renderTabNav() {
+        console.log(this.state);
         const { classPrefix, children } = this.props;
         return (
             <TabNav

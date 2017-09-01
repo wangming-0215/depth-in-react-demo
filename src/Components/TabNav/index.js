@@ -12,14 +12,21 @@ export default class extends Component {
         super(props);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if ('activeIndex' in nextProps) {
+            this.setState({
+                activeIndex: nextProps.activeIndex
+            });
+        }
+    }
+
     getTabs() {
         const { panels, classPrefix, activeIndex } = this.props;
         return React.Children.map(panels, child => {
             if (!child) return;
             const order = parseInt(child.props.order, 10);
-            debugger;
             let classes = classnames({
-                [`${classPrefix}-tabs`]: true,
+                [`${classPrefix}-tab`]: true,
                 [`${classPrefix}-active`]: activeIndex === order,
                 [`${classPrefix}-disabled`]: child.props.disabled
             });
