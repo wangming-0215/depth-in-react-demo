@@ -111,7 +111,7 @@ CSS Modules实现了一下几点:
 
   `mountComponent`负责管理生命周期中的`getInitialState`, `componentWillMount`, `render`和`componentDidMount`
   `getDefaultProps`是通过构造函数管理的，整个生命周期中最先执行的，而且只执行一次。
-  
+
   ***Note*** : `componentWillMount`中执行`setState()`不会触发重新渲染，而是合并state,此时无法获取到更新后的state，需要`render`之后才可以获取到
   ![](/images/5.png)
 
@@ -123,3 +123,9 @@ CSS Modules实现了一下几点:
 
   ***NOTE***: 禁止在`shouldComponentUpdate`和`componentWillUpdate`中调用`setState`，这会造成循环调用，直至耗光浏览器内存后崩溃。
   ![](/images/6.png)
+
+- 阶段三：UMOUNTING
+
+  `unmountComponent`负责管理`componentWillUnmount`,重置所有相关参数，更新队列以及更新状态
+
+***Note*** : 尽可能使用无状态组件
