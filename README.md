@@ -93,3 +93,33 @@ CSS Modules实现了一下几点:
 实现高阶组件的两种方式:
 - 属性代理: 高阶组件通过被包裹的react组件来操作props
 - 反向继承: 高阶组件继承于被包裹的react组件.
+
+### react主要思想 ###
+
+通过构建可复用组件来构建用户界面。
+
+### 组件的生命周期在不同状态下的执行顺序 (react-lifecycle mixin) ###
+
+- 当首次挂载组件时，按顺序执行`getDefaultProps`, `getInitialState`, `componentWillMount`, `render`和`componentDidMount`。
+- 当下载组件时， 执行`componentWillUnmount`。
+- 当重新挂载组件时，按顺序执行`getInitialState`, `componentWillMount`, `render`和`componentDidMount`，但并执行`getDefaultProps`
+- 当再次渲染组件时，组件接受到更新状态，此时按顺序执行`componentWillReveiveProps`, `shouldComponentUpdate`, `componentWillUpdate`, `render`和`componentDidUpdate`
+
+生命周期主要分三个阶段管理： `MOUNTING`, `REVEIVE_PROPS`, `UNMOUNTING`,对应三中方法：`mountComponent`, `updateComponent` , `unmountComponent`。
+
+- 阶段一：MOUNTING
+
+  `mountComponent`负责管理生命周期中的`getInitialState`, `componentWillMount`, `render`和`componentDidMount`
+  `getDefaultProps`是通过构造函数管理的，整个生命周期中最先执行的，而且只执行一次。
+  
+  ***Note*** : `componentWillMount`中执行`setState()`不会触发重新渲染，而是合并state,此时无法获取到更新后的state，需要`render`之后才可以获取到
+  ![](/images/5.png)
+
+- 阶段二：RECEIVE_PROPS
+
+  `updateComponent`负责管理生命周期中的`componentWillReceiveProps`, `shouldComponentUpdate`, `componentWillUpdate`, `render`和`componentDidUpdate`
+
+  ***Note*** : `componentWillUpdate`中执行`setState()`不会触发重新渲染，而是合并state,此时无法获取到更新后的state，需要`render`之后才可以获取到.
+
+  ***NOTE***: 禁止在`shouldComponentUpdate`和`componentWillUpdate`中调用`setState`，这会造成循环调用，直至耗光浏览器内存后崩溃。
+  ![](/images/6.png)
