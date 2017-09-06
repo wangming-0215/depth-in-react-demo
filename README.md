@@ -23,7 +23,7 @@ React.cloneElement() 几乎相当于：
 componentWillReceiveProps 方法。此方法可以作为 React 在 props 传入后，渲染之前 setState 的
 机会。在此方法中调用 setState 是不会二次渲染的
 
-## 声明周期相关 ##
+## 生命周期相关 ##
 1. 组件挂在或卸载时
 
 ![](/images/1.png)
@@ -129,3 +129,8 @@ CSS Modules实现了一下几点:
   `unmountComponent`负责管理`componentWillUnmount`,重置所有相关参数，更新队列以及更新状态
 
 ***Note*** : 尽可能使用无状态组件
+
+### react diff 算法的三个策略 ###
+ - web UI中dom节点跨层级操作特别少，可以忽略不计。
+ - 拥有相同类的两个组件将会生成相似的树形结构，拥有不同类的两个组件将会生成不同的树形结构。
+ - 对于同一层级的一组子节点，它们可以通过唯一id进行区分。
