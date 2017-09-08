@@ -18,22 +18,25 @@
     </style>
 </head>
 <body>
-    <div id='div'></div>
-    <button id='button'>显示div</button>
+    <!-- <div id='div'></div>
+    <button id='button'>显示div</button> -->
 </body>
 <script>
-        var div = document.getElementById('div');
-        div.className = 'hide';
-        var button = document.getElementById('button');
-        button.addEventListener('click', function(e) {
-            e.stopPropagation();
-            div.className = 'show';
-            hideDIV();
-        });
-        function hideDIV() {
-            document.body.addEventListener('click', function() {
-                div.className = 'hide';
-            });
+        var writeChar = function(char, callback) {
+          setTimeout(function() {
+            document.write(char);
+            callback();
+          }, 1000)
         }
+
+        var writeTo = function(string, index) {
+          var char = string.slice(index, index + 1);
+          index += 1;
+          if(index > string.length) {
+            return;
+          }
+          writeChar(char, writeTo(string, index));
+        }
+        writeTo('wangming', 0);
 </script>
 </html>
