@@ -2,6 +2,8 @@ const http = require('http');
 const fs = require('fs');
 
 const server = http.createServer((req, res) => {
+  req.setEncoding('utf8');
+  console.log(req.url);
   if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(`<img src="/cat.png" width="275" height="275">`);

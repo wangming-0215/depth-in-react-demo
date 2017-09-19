@@ -187,3 +187,80 @@ function bar(fn) {
 }
 bar(foo2); // 3,9undefined
 bar(spreadArgs(foo2)); // 12
+
+// 命名参数解决函数参数顺序问题
+function partialProps(fn, presetArgsObj) {
+  return function partiallyApplied(laterArgsObj) {
+    return fn(Object.assign({}, presetArgsObj, laterArgsObj));
+  };
+}
+
+function curryProps(fn, arity = 1) {
+  return (function nextCurried(prevArgsObj) {
+    return function curried(nextArgObj = {}) {
+      let [key] = Object.keys(nextArgObj);
+      let obj = { [key]: nextArgObj[key] };
+      let allArgsObj = Object.assign({}, prevArgsObj, obj); // 为什么不直接使用nextArgsObj ?
+      if (Object.keys(allArgsObj).length >= arity) {
+        return fn(allArgsObj);
+      } else {
+        return nextCurried(allArgsObj);
+      }
+    };
+  })({});
+}
+
+function foo3({ x, y, z } = {}) {
+  console.log(`x:${x}, y:${y}, z:${z}`);
+}
+
+let f1 = curryProps(foo3, 3);
+let f2 = partialProps(foo3, { y: 2 });
+
+f1({ y: 2 })({ x: 1 })({ z: 3 });
+f2({ x: 1, z: 3 });
+
+// point-free style 无形参风格
+function double(x) {
+  return x * 2;
+}
+
+// not point-free style
+let afterMapper = [1, 2, 3, 4, 5].map(function mapper(v) {
+  return double(v);
+});
+console.log(afterMapper);
+
+// point-free style
+// mapper(...)函数和double(...)函数有相同（或相互兼容）的函数签名。
+// 形参v可以直接映射到double(...)函数调用里的相应的实参上。
+// 使用无形参风格的关键，就是找到你的代码中，有哪些地方的函数直接将其形参作为内部函数调用的实参上
+let afterMapper2 = [1, 2, 3, 4, 5].map(double);
+console.log(afterMapper2);
+
+function output2(txt) {
+  console.log(txt);
+}
+
+function printIf(predicate, msg) {
+  if (predicate(msg)) {
+    output(msg);
+  }
+}
+
+function isShortEnought(str) {
+  return str.length <= 5;
+}
+
+function not(predicate) {
+  return function negated(...args) {
+    return !predicate(...args);
+  };
+}
+
+let isLongEnough = not(isShortEnought);
+
+let msg = 'Hello';
+let msg1 = msg + 'World';
+printIf(isShortEnought, msg);
+printIf(isShortEnought, msg1);
