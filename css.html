@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      background: skyblue;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+    div{
+      width: 100px;
+      height: 100px;
+      margin: 30px 15px;
+    }
+    div:first-child {
+      margin-top: 0;
+    }
+    .background {
+      border: 10px solid hsla(0, 0%, 100%, .5);
+      background: white;
+      background-clip: padding-box;
+    }
+
+    .border {
+      background: yellowgreen;
+      box-shadow: 0 0 0 10px #655, 0 0 0 15px deeppink, 0 2px 5px 15px rgba(0, 0, 0, 0.6);
+    }
+
+    .outline{
+      background: yellowgreen;
+      border: 10px solid #655;
+      outline: 1px dashed white;
+      outline-offset: -6px;
+    }
+    
+    .inner-round {
+      background: tan;
+      border-radius: 0.8em;
+      padding: 1em;
+      box-shadow: 0 0 0 0.4em #655;
+      outline: 0.6em solid #655;
+    }
+
+    .gradient {
+      background: linear-gradient(#fb3 33.3%, #58a 0, #58a 66.6%, yellowgreen 0);
+      background-size: 100% 30px;
+    }
+
+    .gradient2 {
+      background: linear-gradient(to right, #fb3 50%, #58a 0);
+      background-size: 30px 100%;
+    }
+
+    .gradient3{
+      background: repeating-linear-gradient(60deg,#fb3, #fb3 15px, #58a 0, #58a 30px);
+    }
+    .gradient4{
+      background: white;
+      background-image: linear-gradient(90deg, rgba(200,0,0,0.5) 50%, transparent 0), linear-gradient(rgba(200, 0, 0, 0.5) 50%, transparent 0);
+      background-size: 30px 30px;
+    }
+
+    .gradient5{
+      background: #58a;
+      background-image: linear-gradient(white 1px, transparent 0),linear-gradient(90deg, white 1px, transparent 0);
+      background-size: 30px 30px;
+    }
+
+    .gradient6 {
+      background: #58a;
+      background-image: linear-gradient(white 2px, transparent 0), 
+                        linear-gradient(90deg, white 2px, transparent 0),
+                        linear-gradient(hsla(0, 0%, 100%, 0.3) 1px, transparent 0),
+                        linear-gradient(90deg,hsla(0, 0%, 100%, 0.3) 1px, transparent 0); 
+      background-size: 75px 75px, 75px 75px, 15px 15px, 15px 15px;
+    }
+
+    .radial-gradient {
+      background: #655;
+      background-image: radial-gradient(tan 30%, transparent 0);
+      background-size: 30px 30px;
+    }
+
+    .radial-gradient2 {
+      background: #655;
+      background-image: radial-gradient(tan 30%, transparent 0),
+                        radial-gradient(tan 30%, transparent 0);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
+
+    .radial-gradient3 {
+      background: #eee;
+      background-image: linear-gradient(45deg, #bbb 25%, transparent 0);
+      background-size: 30px 30px;
+    }
+
+    .radial-gradient4 {
+      background: #eee;
+      background-image: linear-gradient(45deg, transparent 75%, #bbb 0);
+      background-size: 30px 30px;
+    }
+    .radial-gradient5 {
+      background: #eee;
+      background-image: linear-gradient(45deg, #bbb 25%, transparent 0),
+                        linear-gradient(45deg, transparent 75%, #bbb 0);
+      background-size: 30px 30px, 30px 30px;
+    }
+
+    .radial-gradient6{
+      background: #eee;
+      background-image: linear-gradient(45deg, #bbb 25%, transparent 0),
+                        linear-gradient(45deg, transparent 75%, #bbb 0);
+      background-size: 30px 30px, 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
+
+    .radial-gradient7 {
+      background: #eee;
+      background-image: linear-gradient(45deg, #bbb 25%, transparent 0),
+                        linear-gradient(45deg, transparent 75%, #bbb 0),
+                        linear-gradient(45deg, #bbb 25%, transparent 0),
+                        linear-gradient(45deg, transparent 75%, #bbb 0);
+      background-size: 30px 30px, 
+                       30px 30px, 
+                       30px 30px, 
+                       30px 30px;
+      background-position: 0 0,
+                           15px 15px,
+                           15px 15px,
+                           30px 30px;
+    }
+
+    .random-background {
+      background: hsl(20, 40%, 90%);
+      background-image: linear-gradient(90deg, #fb3 10px, transparent 0),
+                        linear-gradient(90deg, #ab4 20px, transparent 0),
+                        linear-gradient(90deg, #655 20px, transparent 0);
+      background-size: 41px 100px, 61px 100px, 83px 100px;
+    }
+
+    .image-border {
+      padding: 1em;
+      border: 1em solid transparent;
+      background-image: linear-gradient(white, white),  url(background.png);
+      background-size: cover;
+      background-clip: padding-box, border-box;
+      background-origin: border-box;
+    }
+    .image-border2 {
+      padding: 1em;
+      border: 1em solid transparent;
+      background: linear-gradient(white, white) padding-box,
+                  repeating-linear-gradient(
+                    -45deg, 
+                    red 0, 
+                    red 12.5%, 
+                    transparent 0, 
+                    transparent 25%, 
+                    #58a 0, 
+                    #58a 37.5%, 
+                    transparent 0, 
+                    transparent 50%
+                  )
+                  0 / 5em 5em;
+    }
+    
+    .marching-ants {
+      padding: 1em;
+      border: 1px solid transparent;
+      background: 
+        linear-gradient(white, white) padding-box,
+        repeating-linear-gradient(-45deg, black 0, black 25%, white 0, white 50%) 0 / 0.6em 0.6em;
+      animation: ants 12s linear infinite;
+    }
+
+    @keyframes ants {
+      to {
+        background-position: 100%;
+      }
+    }
+
+    .footnote {
+      border-top: 0.2em solid transparent;
+      border-image: 100% 0 0 linear-gradient(90deg, #666 4em, transparent 0);
+      padding-top: 1em;
+    }
+
+    .round{
+      background: #fb3;
+      border-radius: 50px;
+    }
+
+    .ellipse {
+      width: 200px;
+      height: 150px;
+      background: #fb3;
+      border-radius: 100px / 75px;   /* 单独指定水平和垂直半径 */
+    }
+
+    .ellipse2 {
+      width: 200px;
+      height: 150px;
+      background: #fb3;
+      border-radius: 50%;
+    }
+
+    .ellipse3 {
+      width: 200px;
+      height: 150px;
+      background: #fb3;
+      border-radius: 50% / 100% 100% 0 0;
+    }
+
+    .ellipse4 {
+      width: 200px;
+      height: 150px;
+      background: #fb3;
+      border-radius: 100% 0  0 100%/ 50% 0 0 50%;
+    }
+    
+    .ellipse5 {
+      width: 200px;
+      height: 150px;
+      background: #fb3;
+      border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    }
+
+    .ellipse6 {
+      width: 200px;
+      height: 150px;
+      background: #fb3;
+      border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+    }
+
+    .ellipse7 {
+      width: 200px;
+      height: 150px;
+      background: #fb3;
+      border-radius: 100% 0 0 0;
+    }
+
+    .parallelograms {
+      position: relative;
+      color: white;
+      font-weight: normal;
+    }
+
+    .parallelograms::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      z-index: -1;
+      background: #fb3;
+      transform: skew(45deg);
+    }
+
+    .picture {
+      width: 275px;
+      height: 275px;
+      transform: rotate(45deg);
+      overflow: hidden;
+    }
+    .picture > img {
+      max-width: 100%;
+      transform: rotate(-45deg) scale(1.42); 
+    }
+
+    img {
+      clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+      transition: 1s clip-path;
+    }
+
+    img:hover {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .bevel-corners-gradients {
+      background: #fb3;
+      background: linear-gradient(-45deg, transparent 15px, #fb3 0);
+    }
+
+    .bevel-corners-gradients2 {
+      background: #fb3;
+      background: 
+        linear-gradient(-45deg, transparent 15px, #fb3 0) right,
+        linear-gradient(45deg, transparent 15px, #655 0) left;
+      background-size: 50% 100%;
+      background-repeat: no-repeat;
+    }
+
+    .bevel-corners-gradients3 {
+      background: #fb3;
+      background: 
+        linear-gradient(135deg, transparent 15px, yellowgreen 0) top left,
+        linear-gradient(-135deg, transparent 15px, red 0) top right,
+        linear-gradient(45deg, transparent 15px, #655 0) bottom left,
+        linear-gradient(-45deg, transparent 15px, #fb3 0) bottom right;
+      background-size: 50% 50%;
+      background-repeat: no-repeat;
+    }
+
+    .bevel-corners-gradients4 {
+      height: 50px;
+      background: #fb3;
+      background:
+        linear-gradient(-45deg, transparent 17px, #fb3 0) bottom right,
+        linear-gradient(-135deg, transparent 17px, #fb3 0) top right;
+      background-size: 100% 50%;
+      background-repeat: no-repeat;
+    }
+
+    .scoop-corners {
+      background: #fb3;
+      background:
+        radial-gradient(circle at top left, transparent 15px, #fb3 0) top left,
+        radial-gradient(circle at top right, transparent 15px, #fb3 0) top right,
+        radial-gradient(circle at bottom left, transparent 15px, #fb3 0) bottom left,
+        radial-gradient(circle at bottom right, transparent 15px, #fb3 0) bottom right;
+      background-size: 50% 50%;
+      background-repeat: no-repeat;
+    }
+
+    .evel-corners {
+      border: 15px solid transparent;
+      border-image: 1 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="3" height="3" fill="%2358a"><polygon points="0,1 1,0 2,0 3,1 3,2 2,3 1,3 0,2"/></svg>');
+      background: #655;
+      background-clip: padding-box;
+    }
+    .trapezoid-tabs {
+      position: relative;
+      display: inline-block;
+      padding: 0.5em 1em 0.35em;
+      color: white;
+    }
+    
+    .trapezoid-tabs::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      background: #58a;
+      transform:scaleY(1.3) perspective(0.5em) rotateX(5deg);
+      transform-origin: bottom;
+    }
+
+    .pie {
+      border-radius: 50%;
+      background: yellowgreen;
+      background-image: linear-gradient(to right, transparent 50%, #655 0);
+    }
+
+    .pie::before {
+      content: '';
+      display: block;
+      margin-left: 50%;
+      height: 100%;
+      border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+      background-color: inherit;
+      transform-origin: left;
+      animation: 
+        spin 3s linear infinite,
+        bg 6s step-end infinite
+    }
+
+    @keyframes spin {
+      to { transform: rotate(0.5turn);}
+    }
+    @keyframes bg {
+      50% { background: #655; }
+    }
+
+    circle {
+      fill: yellowgreen;
+      stroke: #655;
+      stroke-width: 50;
+      stroke-dasharray: 0 158;
+      animation: fillup 5s linear infinite;
+    }
+    svg{
+      transform: rotate(-90deg);
+      background: yellowgreen;
+      border-radius: 50%;
+    }
+
+    @keyframes fillup {
+      to {stroke-dasharray: 158 158;}
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="border"></div>
+  <div class="outline"></div>
+  <div class="inner-round">inner round</div>
+  <div class="gradient"></div>
+  <div class="gradient2"></div>
+  <div class="gradient3"></div>
+  <div class="gradient4"></div>
+  <div class="gradient5"></div>
+  <div class="gradient6"></div>
+  <div class="radial-gradient"></div>
+  <div class="radial-gradient2"></div>
+  <div class="radial-gradient3"></div>
+  <div class="radial-gradient4"></div>
+  <div class="radial-gradient5"></div>
+  <div class="radial-gradient6"></div>
+  <div class="radial-gradient7"></div>
+  <div class="random-background"></div>
+  <div class="image-border">锄禾日当午</div>
+  <div class="image-border2">汗滴禾下土</div>
+  <div class="marching-ants">谁知盘中餐</div>
+  <div class="footnote"></div>
+  <div class="round"></div>
+  <div class="ellipse"></div>
+  <div class="ellipse2"></div>
+  <div class="ellipse3"></div>
+  <div class="ellipse4"></div>
+  <div class="ellipse5"></div>
+  <div class="ellipse6"></div>
+  <div class="ellipse7"></div>
+  <div class="parallelograms"></div>
+  <div class="picture">
+    <img src="cat.png" alt="cat" width="275" height="275"/>
+  </div>
+  <img src="cat.png" alt="cat" width="275" height="275"/>
+  <div class="bevel-corners-gradients"></div>
+  <div class="bevel-corners-gradients2"></div>
+  <div class="bevel-corners-gradients3"></div>
+  <div class="bevel-corners-gradients4"></div>
+  <div class="scoop-corners"></div>
+  <div class="evel-corners"></div>
+  <div class="trapezoid-tabs"></div>
+  <div class="pie"></div>
+  <svg width="100" height="100">
+    <circle r="25" cx="50" cy="50" />
+  </svg>
+</body>
+</html>

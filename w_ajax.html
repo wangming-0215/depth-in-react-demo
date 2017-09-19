@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <img id='avatar' width='460' heiht='460'/>
+  <button type="submit" onclick="sendRequest()">Click</button>
+  <script src="w_ajax.js"></script>
+  <script>
+    let sendRequest = debounce(function(){
+      let options = {
+        url:"https://api.github.com/users/wangming-0215"
+      };
+      let w_ajax = ajax();
+      w_ajax(options);
+    }, 1000);
+
+    function debounce (fn, delay) {
+      let timer = null;
+      return function(args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(args), delay);
+      }
+    }
+
+    function ajax() {
+      return function(options) {
+        w_ajax(options, function(res) {
+        if(res.error) {
+          console.log(res.error);
+          return;
+        }
+        console.log(JSON.parse(res.data));
+        let w_avatar = getAvatar();
+        w_avatar(JSON.parse(res.data));
+      });
+      }
+    }
+    
+    function getAvatar() {
+      return function(data) {
+        let avatar = document.querySelector('#avatar');
+        avatar.src = data['avatar_url'];
+        avatar.alt = data.login;
+      }
+    }
+  </script>
+</body>
+</html>
